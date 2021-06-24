@@ -1,0 +1,19 @@
+
+version: "3.8"
+services:
+    apache:
+        image: httpd:2.4-alpine
+        container_name: apache
+        ports:
+            - 80
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.apache.rule=Host(`apache.docker`)
+            - traefik.http.routers.apache.entrypoints=web
+            - traefik.port=80
+        networks:
+            - proxy
+
+networks:
+    proxy:
+        external: true 
